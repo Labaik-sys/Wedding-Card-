@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Hasnain Raza & Komal Batool | Wedding Invitation</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-cream: #fbf9f5;
+      --card-white: #ffffff;
+      --card-border: rgba(212, 175, 55, 0.35);
+      --gold-main: #c5a059;
+      --gold-dark: #997531;
+      --gold-gradient: linear-gradient(135deg, #dfbc6d 0%, #f7efca 50%, #b89241 100%);
+      --text-dark: #2c241d;
+      --text-muted: #786e65;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      text-align: center;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 50% 20%, #fffaeb 0%, #fbf9f5 100%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.025) 0px, rgba(212, 175, 55, 0.025) 2px, transparent 2px, transparent 12px);
+    }
+
+    /* Top Control Bar */
+    .top-bar {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .top-bar-btn {
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--gold-main);
+      color: var(--gold-dark);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(199, 160, 89, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Envelope Landing Screen */
+    .envelope-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--bg-cream);
+      background-image: radial-gradient(circle at 50% 30%, #fff8dc 0%, #fbf9f5 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .envelope-box {
+      width: 320px;
+      height: 220px;
+      background: #fffef9;
+      border-radius: 12px;
+      position: relative;
+      border: 2px solid var(--gold-main);
+      box-shadow: 0 15px 35px rgba(199, 160, 89, 0.2);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 115px solid #fcf6da;
+      transform-origin: top;
+      transition: transform 0.8s ease;
+      z-index: 3;
+    }
+
+    .envelope-box.open .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .light-burst {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 248, 220, 0.9) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      z-index: 2;
+    }
+
+    .envelope-box.open .light-burst {
+      opacity: 1;
+    }
+
+    .wax-seal {
+      width: 65px;
+      height: 65px;
+      background: var(--gold-gradient);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(199, 160, 89, 0.3);
+      z-index: 4;
+      color: #3b2b00;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    /* Main Container */
+    .invitation-container {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 75px 16px 60px 16px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    .invitation-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--card-white);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(199, 160, 89, 0.1);
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px dashed rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    /* 1. HERO COUPLE CARD */
+    .hero-card {
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), 
+                  url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80') center/cover;
+      color: var(--text-dark);
+      border-radius: 22px;
+      padding: 40px 20px;
+      border: 1px solid var(--gold-main);
+    }
+
+    .hero-sub {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .couple-name {
+      font-family: 'Alex Brush', cursive;
+      font-size: 48px;
+      color: var(--gold-dark);
+      line-height: 1.1;
+      filter: drop-shadow(0 2px 4px rgba(199, 160, 89, 0.15));
+    }
+
+    .ampersand {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      color: var(--gold-main);
+      margin: 10px 0;
+      display: block;
+    }
+
+    /* 2. SCRATCH TO REVEAL HEART CARD */
+    .scratch-wrapper {
+      position: relative;
+      width: 220px;
+      height: 200px;
+      margin: 20px auto 10px auto;
+    }
+
+    #scratchCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .heart-revealed {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid var(--gold-main);
+      z-index: 1;
+    }
+
+    .heart-revealed h4 {
+      font-family: 'Alex Brush', cursive;
+      font-size: 28px;
+      color: var(--gold-dark);
+    }
+
+    /* 3. REAL LIVE COUNTDOWN TIMER */
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .time-box {
+      background: #fffcf0;
+      border: 1px solid var(--card-border);
+      padding: 10px 12px;
+      border-radius: 12px;
+      min-width: 68px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .time-box span {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      display: block;
+    }
+
+    .time-box p {
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* 4. TIMELINE WITH DOTS */
+    .timeline-item {
+      text-align: left;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 22px;
+      border-left: 2px solid var(--gold-main);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold-main);
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+    }
+
+    .timeline-title {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gold-dark);
+    }
+
+    .timeline-time {
+      font-size: 11px;
+      color: var(--gold-main);
+      margin: 3px 0;
+      font-weight: 600;
+    }
+
+    .timeline-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* BUTTON ACTION */
+    .btn-action {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      background: var(--gold-gradient);
+      color: #3b2b00;
+      border: none;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(199, 160, 89, 0.25);
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Control Bar -->
+  <div class="top-bar">
+    <button class="top-bar-btn"><i class="fas fa-globe"></i> Urdu</button>
+    <button class="top-bar-btn" id="audioBtn" onclick="toggleAudio()"><i class="fas fa-volume-up"></i></button>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Envelope Landing Screen -->
+  <div class="envelope-screen" id="envelopeScreen">
+    <div class="envelope-box" id="envBox" onclick="openInvitation()">
+      <div class="envelope-flap"></div>
+      <div class="light-burst"></div>
+      <div class="wax-seal">
+        <span>Tap</span>
+        <span style="font-size: 8px; opacity:0.8;">to open</span>
+      </div>
+    </div>
+    <p style="margin-top: 25px; font-size: 12px; letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase;">YOU ARE INVITED</p>
+  </div>
+
+  <!-- Main Invitation Content -->
+  <div class="invitation-container" id="invContainer">
+
+    <!-- Hero Card -->
+    <div class="card hero-card">
+      <p class="hero-sub"><i class="fas fa-heart" style="color:var(--gold-main);"></i> We cordially invite you to celebrate our wedding</p>
+      
+      <div class="couple-name">Dr. Hasnain Raza</div>
+
+      <span class="ampersand">&</span>
+
+      <div class="couple-name">Komal Batool</div>
+    </div>
+
+    <!-- Heart Scratch Card -->
+    <div class="card">
+      <p style="font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">Scratch to Reveal</p>
+      <div class="scratch-wrapper">
+        <canvas id="scratchCanvas" width="220" height="200"></canvas>
+        <div class="heart-revealed">
+          <p style="font-size: 10px; color: var(--gold-main); letter-spacing: 1px;">OUR FOREVER BEGINS</p>
+          <h4>Save The Dates</h4>
+          <p style="font-size: 12px; font-weight: 600; color: var(--text-dark); margin-top: 5px;">October 2 & 3, 2026</p>
+          <p style="font-size: 10px; color: var(--text-muted);">Al-Kamal Tulamba</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real Live Countdown Timer -->
+    <div class="card">
+      <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;">Counting Down to Barat</p>
+      <div class="countdown-grid">
+        <div class="time-box"><span id="days">00</span><p>DAYS</p></div>
+        <div class="time-box"><span id="hours">00</span><p>HOURS</p></div>
+        <div class="time-box"><span id="mins">00</span><p>MINS</p></div>
+        <div class="time-box"><span id="secs">00</span><p>SECS</p></div>
+      </div>
+    </div>
+
+    <!-- Program Timeline -->
+    <div class="card">
+      <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">Program Timeline</p>
+
+      <div class="timeline-item">
+        <div class="timeline-title">Barat Ceremony</div>
+        <div class="timeline-time">2 October 2026 (Raat Ko)</div>
+        <div class="timeline-desc">Your gracious presence is requested on Barat.</div>
+      </div>
+
+      <div class="timeline-item" style="margin-bottom:0;">
+        <div class="timeline-title">Walima Reception</div>
+        <div class="timeline-time">3 October 2026 (Subah)</div>
+        <div class="timeline-desc">Join us for Walima reception in the morning.</div>
+      </div>
+    </div>
+
+    <!-- Venue Card -->
+    <div class="card">
+      <i class="fas fa-map-marker-alt" style="font-size: 24px; color: var(--gold-main); margin-bottom: 8px;"></i>
+      <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold-dark);">Al-Kamal Marquee / Hall</h3>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Tulamba, Punjab, Pakistan</p>
+      
+      <a href="https://maps.google.com" target="_blank" class="btn-action">View Venue Location</a>
+    </div>
+
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (isPlaying) {
+        bgMusic.pause();
+        document.getElementById('audioBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        bgMusic.play().catch(() => {});
+        document.getElementById('audioBtn').innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function openInvitation() {
+      document.getElementById('envBox').classList.add('open');
+      bgMusic.play().then(() => isPlaying = true).catch(() => {});
+      
+      setTimeout(() => {
+        const env = document.getElementById('envelopeScreen');
+        env.style.opacity = '0';
+        setTimeout(() => {
+          env.style.display = 'none';
+          document.getElementById('invContainer').classList.add('visible');
+          initHeartScratch();
+          startLiveCountdown();
+        }, 800);
+      }, 900);
+    }
+
+    function initHeartScratch() {
+      const canvas = document.getElementById('scratchCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#dfbc6d');
+      gradient.addColorStop(0.5, '#f7efca');
+      gradient.addColorStop(1, '#b89241');
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.moveTo(110, 180);
+      ctx.bezierCurveTo(110, 180, 10, 120, 10, 60);
+      ctx.bezierCurveTo(10, 10, 75, 10, 110, 50);
+      ctx.bezierCurveTo(145, 10, 210, 10, 210, 60);
+      ctx.bezierCurveTo(210, 120, 110, 180, 110, 180);
+      ctx.fill();
+
+      ctx.fillStyle = '#3b2b00';
+      ctx.font = 'bold 11px Montserrat';
+      ctx.textAlign = 'center';
+      ctx.fillText('SCRATCH HERE', 110, 95);
+
+      let isScratching = false;
+
+      function scratch(e) {
+        if (!isScratching) return;
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+        if (!clientX || !clientY) return;
+
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(clientX - rect.left, clientY - rect.top, 18, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      canvas.addEventListener('mousedown', () => isScratching = true);
+      window.addEventListener('mouseup', () => isScratching = false);
+      canvas.addEventListener('mousemove', scratch);
+      canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
+      window.addEventListener('touchend', () => isScratching = false);
+      canvas.addEventListener('touchmove', scratch);
+    }
+
+    function startLiveCountdown() {
+      const eventDate = new Date('October 2, 2026 20:00:00').getTime();
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        if (distance < 0) {
+          document.getElementById('days').innerText = "00";
+          document.getElementById('hours').innerText = "00";
+          document.getElementById('mins').innerText = "00";
+          document.getElementById('secs').innerText = "00";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+        document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+        document.getElementById('mins').innerText = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('secs').innerText = seconds < 10 ? '0' + seconds : seconds;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+  </script>
+</body>
+</html>
