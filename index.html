@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dr. Hasnain Raza & Komal Batool | Wedding Invitation</title>
   
-  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -39,6 +38,35 @@
       background-image: 
         radial-gradient(circle at 50% 20%, #fffaeb 0%, #fbf9f5 100%),
         repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.025) 0px, rgba(212, 175, 55, 0.025) 2px, transparent 2px, transparent 12px);
+    }
+
+    /* Falling Flower Petals Animation */
+    .petals-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 998;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      background: linear-gradient(135deg, #ffdfba 0%, #f7c59f 100%);
+      border-radius: 150% 0 150% 0;
+      animation: fallPetal linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes fallPetal {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      20% { opacity: 0.8; }
+      100% {
+        transform: translateY(110vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     /* Top Control Bar */
@@ -86,13 +114,13 @@
     }
 
     .envelope-box {
-      width: 320px;
-      height: 220px;
+      width: 330px;
+      height: 230px;
       background: #fffef9;
-      border-radius: 12px;
+      border-radius: 14px;
       position: relative;
       border: 2px solid var(--gold-main);
-      box-shadow: 0 15px 35px rgba(199, 160, 89, 0.2);
+      box-shadow: 0 20px 40px rgba(199, 160, 89, 0.25);
       cursor: pointer;
       display: flex;
       justify-content: center;
@@ -105,11 +133,11 @@
       left: 0;
       width: 0;
       height: 0;
-      border-left: 160px solid transparent;
-      border-right: 160px solid transparent;
-      border-top: 115px solid #fcf6da;
+      border-left: 165px solid transparent;
+      border-right: 165px solid transparent;
+      border-top: 120px solid #fcf6da;
       transform-origin: top;
-      transition: transform 0.8s ease;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 3;
     }
 
@@ -121,7 +149,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(255, 248, 220, 0.9) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 248, 220, 0.95) 0%, transparent 70%);
       opacity: 0;
       transition: opacity 0.6s ease;
       z-index: 2;
@@ -132,19 +160,18 @@
     }
 
     .wax-seal {
-      width: 65px;
-      height: 65px;
+      width: 70px;
+      height: 70px;
       background: var(--gold-gradient);
       border-radius: 50%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(199, 160, 89, 0.3);
+      box-shadow: 0 6px 20px rgba(199, 160, 89, 0.4);
       z-index: 4;
       color: #3b2b00;
-      font-size: 10px;
-      font-weight: bold;
+      border: 2px dashed rgba(255, 255, 255, 0.6);
     }
 
     /* Main Container */
@@ -182,14 +209,22 @@
       pointer-events: none;
     }
 
-    /* 1. HERO COUPLE CARD */
     .hero-card {
       background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), 
                   url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80') center/cover;
-      color: var(--text-dark);
       border-radius: 22px;
-      padding: 40px 20px;
+      padding: 35px 20px;
       border: 1px solid var(--gold-main);
+    }
+
+    /* Quranic Verse Styling */
+    .verse-box {
+      font-style: italic;
+      font-size: 11px;
+      color: var(--gold-dark);
+      margin-bottom: 15px;
+      line-height: 1.5;
+      letter-spacing: 0.5px;
     }
 
     .hero-sub {
@@ -197,26 +232,25 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .couple-name {
       font-family: 'Alex Brush', cursive;
-      font-size: 48px;
+      font-size: 46px;
       color: var(--gold-dark);
       line-height: 1.1;
-      filter: drop-shadow(0 2px 4px rgba(199, 160, 89, 0.15));
     }
 
     .ampersand {
       font-family: 'Cinzel', serif;
-      font-size: 24px;
+      font-size: 22px;
       color: var(--gold-main);
-      margin: 10px 0;
+      margin: 8px 0;
       display: block;
     }
 
-    /* 2. SCRATCH TO REVEAL HEART CARD */
+    /* Scratch Card */
     .scratch-wrapper {
       position: relative;
       width: 220px;
@@ -251,7 +285,58 @@
       color: var(--gold-dark);
     }
 
-    /* 3. REAL LIVE COUNTDOWN TIMER */
+    /* Calendar Widget Styling */
+    .calendar-widget {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+      background: #fffcf8;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .calendar-header {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .calendar-day-name {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 10px;
+      padding-bottom: 4px;
+    }
+
+    .calendar-date {
+      padding: 6px 0;
+      border-radius: 50%;
+      color: var(--text-dark);
+    }
+
+    .calendar-date.highlight {
+      background: var(--gold-gradient);
+      color: #3b2b00;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(199, 160, 89, 0.4);
+    }
+
+    .calendar-date.muted {
+      color: #ccc;
+    }
+
+    /* Countdown */
     .countdown-grid {
       display: flex;
       justify-content: center;
@@ -265,7 +350,6 @@
       padding: 10px 12px;
       border-radius: 12px;
       min-width: 68px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .time-box span {
@@ -283,7 +367,7 @@
       margin-top: 2px;
     }
 
-    /* 4. TIMELINE WITH DOTS */
+    /* Timeline */
     .timeline-item {
       text-align: left;
       padding-left: 20px;
@@ -301,7 +385,6 @@
       height: 10px;
       border-radius: 50%;
       background: var(--gold-main);
-      box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
     }
 
     .timeline-title {
@@ -323,7 +406,7 @@
       color: var(--text-muted);
     }
 
-    /* BUTTON ACTION */
+    /* Button Action */
     .btn-action {
       display: inline-block;
       width: 100%;
@@ -344,45 +427,95 @@
 </head>
 <body>
 
-  <!-- Top Control Bar -->
+  <div class="petals-container" id="petalsContainer"></div>
+
   <div class="top-bar">
     <button class="top-bar-btn"><i class="fas fa-globe"></i> Urdu</button>
     <button class="top-bar-btn" id="audioBtn" onclick="toggleAudio()"><i class="fas fa-volume-up"></i></button>
   </div>
 
-  <!-- Background Music -->
   <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Envelope Landing Screen -->
   <div class="envelope-screen" id="envelopeScreen">
     <div class="envelope-box" id="envBox" onclick="openInvitation()">
       <div class="envelope-flap"></div>
       <div class="light-burst"></div>
       <div class="wax-seal">
-        <span>Tap</span>
-        <span style="font-size: 8px; opacity:0.8;">to open</span>
+        <i class="fas fa-heart" style="font-size: 14px; margin-bottom: 2px;"></i>
+        <span style="font-size: 9px; letter-spacing: 1px;">OPEN</span>
       </div>
     </div>
-    <p style="margin-top: 25px; font-size: 12px; letter-spacing: 3px; color: var(--gold-dark); text-transform: uppercase;">YOU ARE INVITED</p>
+    <p style="margin-top: 30px; font-size: 12px; letter-spacing: 4px; color: var(--gold-dark); text-transform: uppercase; font-weight: 600;">YOU ARE INVITED</p>
   </div>
 
-  <!-- Main Invitation Content -->
   <div class="invitation-container" id="invContainer">
 
-    <!-- Hero Card -->
     <div class="card hero-card">
+      <div class="verse-box">"And We created you in pairs..."</div>
       <p class="hero-sub"><i class="fas fa-heart" style="color:var(--gold-main);"></i> We cordially invite you to celebrate our wedding</p>
-      
       <div class="couple-name">Dr. Hasnain Raza</div>
-
       <span class="ampersand">&</span>
-
       <div class="couple-name">Komal Batool</div>
     </div>
 
-    <!-- Heart Scratch Card -->
+    <div class="card">
+      <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">Save The Date</p>
+      <div class="calendar-widget">
+        <div class="calendar-header">October 2026</div>
+        <div class="calendar-grid">
+          <div class="calendar-day-name">Su</div>
+          <div class="calendar-day-name">Mo</div>
+          <div class="calendar-day-name">Tu</div>
+          <div class="calendar-day-name">We</div>
+          <div class="calendar-day-name">Th</div>
+          <div class="calendar-day-name">Fr</div>
+          <div class="calendar-day-name">Sa</div>
+          
+          <div class="calendar-date muted">27</div>
+          <div class="calendar-date muted">28</div>
+          <div class="calendar-date muted">29</div>
+          <div class="calendar-date muted">30</div>
+          <div class="calendar-date">1</div>
+          <div class="calendar-date highlight">2</div>
+          <div class="calendar-date highlight">3</div>
+          
+          <div class="calendar-date">4</div>
+          <div class="calendar-date">5</div>
+          <div class="calendar-date">6</div>
+          <div class="calendar-date">7</div>
+          <div class="calendar-date">8</div>
+          <div class="calendar-date">9</div>
+          <div class="calendar-date">10</div>
+
+          <div class="calendar-date">11</div>
+          <div class="calendar-date">12</div>
+          <div class="calendar-date">13</div>
+          <div class="calendar-date">14</div>
+          <div class="calendar-date">15</div>
+          <div class="calendar-date">16</div>
+          <div class="calendar-date">17</div>
+
+          <div class="calendar-date">18</div>
+          <div class="calendar-date">19</div>
+          <div class="calendar-date">20</div>
+          <div class="calendar-date">21</div>
+          <div class="calendar-date">22</div>
+          <div class="calendar-date">23</div>
+          <div class="calendar-date">24</div>
+
+          <div class="calendar-date">25</div>
+          <div class="calendar-date">26</div>
+          <div class="calendar-date">27</div>
+          <div class="calendar-date">28</div>
+          <div class="calendar-date">29</div>
+          <div class="calendar-date">30</div>
+          <div class="calendar-date">31</div>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <p style="font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">Scratch to Reveal</p>
       <div class="scratch-wrapper">
@@ -396,7 +529,6 @@
       </div>
     </div>
 
-    <!-- Real Live Countdown Timer -->
     <div class="card">
       <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;">Counting Down to Barat</p>
       <div class="countdown-grid">
@@ -407,16 +539,13 @@
       </div>
     </div>
 
-    <!-- Program Timeline -->
     <div class="card">
       <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">Program Timeline</p>
-
       <div class="timeline-item">
         <div class="timeline-title">Barat Ceremony</div>
         <div class="timeline-time">2 October 2026 (Raat Ko)</div>
         <div class="timeline-desc">Your gracious presence is requested on Barat.</div>
       </div>
-
       <div class="timeline-item" style="margin-bottom:0;">
         <div class="timeline-title">Walima Reception</div>
         <div class="timeline-time">3 October 2026 (Subah)</div>
@@ -424,18 +553,29 @@
       </div>
     </div>
 
-    <!-- Venue Card -->
     <div class="card">
       <i class="fas fa-map-marker-alt" style="font-size: 24px; color: var(--gold-main); margin-bottom: 8px;"></i>
       <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold-dark);">Al-Kamal Marquee / Hall</h3>
       <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Tulamba, Punjab, Pakistan</p>
-      
-      <a href="https://maps.google.com" target="_blank" class="btn-action">View Venue Location</a>
+      <a href="https://maps.google.com/?q=Al-Kamal+Marquee+Tulamba" target="_blank" class="btn-action">View Venue Location</a>
     </div>
 
   </div>
 
   <script>
+    // Create Falling Petals
+    const petalsContainer = document.getElementById('petalsContainer');
+    for (let i = 0; i < 12; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.width = (10 + Math.random() * 10) + 'px';
+      petal.style.height = (15 + Math.random() * 15) + 'px';
+      petal.style.animationDuration = (4 + Math.random() * 4) + 's';
+      petal.style.animationDelay = (Math.random() * 5) + 's';
+      petalsContainer.appendChild(petal);
+    }
+
     const bgMusic = document.getElementById('bgMusic');
     let isPlaying = false;
 
@@ -470,7 +610,6 @@
       const canvas = document.getElementById('scratchCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
       gradient.addColorStop(0, '#dfbc6d');
       gradient.addColorStop(0.5, '#f7efca');
@@ -491,13 +630,11 @@
       ctx.fillText('SCRATCH HERE', 110, 95);
 
       let isScratching = false;
-
       function scratch(e) {
         if (!isScratching) return;
         const rect = canvas.getBoundingClientRect();
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-
         if (!clientX || !clientY) return;
 
         ctx.globalCompositeOperation = 'destination-out';
@@ -516,19 +653,10 @@
 
     function startLiveCountdown() {
       const eventDate = new Date('October 2, 2026 20:00:00').getTime();
-
       function updateTimer() {
         const now = new Date().getTime();
         const distance = eventDate - now;
-
-        if (distance < 0) {
-          document.getElementById('days').innerText = "00";
-          document.getElementById('hours').innerText = "00";
-          document.getElementById('mins').innerText = "00";
-          document.getElementById('secs').innerText = "00";
-          return;
-        }
-
+        if (distance < 0) return;
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -539,7 +667,6 @@
         document.getElementById('mins').innerText = minutes < 10 ? '0' + minutes : minutes;
         document.getElementById('secs').innerText = seconds < 10 ? '0' + seconds : seconds;
       }
-
       updateTimer();
       setInterval(updateTimer, 1000);
     }
