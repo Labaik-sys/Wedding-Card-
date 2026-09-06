@@ -40,8 +40,8 @@
         repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.025) 0px, rgba(212, 175, 55, 0.025) 2px, transparent 2px, transparent 12px);
     }
 
-    /* Falling Flower Petals Animation */
-    .petals-container {
+    /* Ambient Effects & Lanterns Container */
+    .effects-container {
       position: fixed;
       inset: 0;
       pointer-events: none;
@@ -54,7 +54,7 @@
       background: linear-gradient(135deg, #ffdfba 0%, #f7c59f 100%);
       border-radius: 150% 0 150% 0;
       animation: fallPetal linear infinite;
-      opacity: 0.7;
+      opacity: 0.6;
     }
 
     @keyframes fallPetal {
@@ -62,9 +62,81 @@
         transform: translateY(-10vh) translateX(0) rotate(0deg);
         opacity: 0;
       }
-      20% { opacity: 0.8; }
+      20% { opacity: 0.7; }
       100% {
-        transform: translateY(110vh) translateX(50px) rotate(360deg);
+        transform: translateY(110vh) translateX(40px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Traditional Floating Lanterns (Qandeel) */
+    .lantern {
+      position: absolute;
+      bottom: -100px;
+      width: 30px;
+      height: 45px;
+      background: radial-gradient(circle, #fff3cd 0%, #dfbc6d 70%, #997531 100%);
+      border-radius: 15px 15px 10px 10px;
+      box-shadow: 0 0 15px rgba(223, 188, 109, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.8);
+      animation: floatLantern linear infinite;
+      opacity: 0.7;
+    }
+
+    .lantern::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: 9px;
+      width: 12px;
+      height: 7px;
+      background: #786e65;
+      border-radius: 2px;
+    }
+
+    .lantern::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 11px;
+      width: 8px;
+      height: 5px;
+      background: #786e65;
+      border-radius: 2px;
+    }
+
+    @keyframes floatLantern {
+      0% {
+        transform: translateY(0) translateX(0) scale(0.8);
+        opacity: 0;
+      }
+      20% { opacity: 0.75; }
+      80% { opacity: 0.75; }
+      100% {
+        transform: translateY(-115vh) translateX(25px) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Interactive Sparkle Trail */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #dfbc6d;
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 8px #f7efca;
+      animation: sparkleAnim 0.8s ease-out forwards;
+      z-index: 1001;
+    }
+
+    @keyframes sparkleAnim {
+      0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.2) translateY(-30px);
         opacity: 0;
       }
     }
@@ -99,7 +171,35 @@
       gap: 6px;
     }
 
-    /* Envelope Landing Screen */
+    /* Audio Visualizer Dancing Bars */
+    .audio-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+      margin-left: 4px;
+    }
+
+    .audio-bars span {
+      width: 2px;
+      background: var(--gold-dark);
+      border-radius: 1px;
+      height: 4px;
+    }
+
+    .playing .audio-bars span {
+      animation: soundWave 0.6s infinite ease-in-out alternate;
+    }
+
+    .playing .audio-bars span:nth-child(2) { animation-delay: 0.2s; }
+    .playing .audio-bars span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes soundWave {
+      0% { height: 4px; }
+      100% { height: 12px; }
+    }
+
+    /* Envelope Landing Screen with 3D Cinematic Zoom & Glow */
     .envelope-screen {
       position: fixed;
       inset: 0;
@@ -110,7 +210,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.8s ease, visibility 0.8s;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .envelope-box {
@@ -125,6 +225,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+      animation: envelopeFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes envelopeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .envelope-screen.zoom-out {
+      opacity: 0;
+      transform: scale(1.25);
+      pointer-events: none;
     }
 
     .envelope-flap {
@@ -172,6 +286,12 @@
       z-index: 4;
       color: #3b2b00;
       border: 2px dashed rgba(255, 255, 255, 0.6);
+      animation: pulseSeal 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseSeal {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+      50% { transform: scale(1.08); box-shadow: 0 0 15px 5px rgba(197, 160, 89, 0.6); }
     }
 
     /* Main Container */
@@ -189,7 +309,19 @@
       transform: translateY(0);
     }
 
-    /* Card Styling */
+    /* Enhanced 3D Scroll Reveal Animation with Rotation */
+    .card-reveal {
+      opacity: 0;
+      transform: translateY(50px) rotateX(10deg);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card-reveal.active {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
+    }
+
+    /* Card Styling with Subtle Floating Hover */
     .card {
       background: var(--card-white);
       border: 1px solid var(--card-border);
@@ -198,6 +330,12 @@
       margin-bottom: 24px;
       box-shadow: 0 10px 30px rgba(199, 160, 89, 0.1);
       position: relative;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(199, 160, 89, 0.18);
     }
 
     .card::before {
@@ -217,7 +355,7 @@
       border: 1px solid var(--gold-main);
     }
 
-    /* Quranic Verse Styling */
+    /* Quranic Verse */
     .verse-box {
       font-style: italic;
       font-size: 11px;
@@ -225,6 +363,12 @@
       margin-bottom: 15px;
       line-height: 1.5;
       letter-spacing: 0.5px;
+      animation: fadeInVerse 1.5s ease;
+    }
+
+    @keyframes fadeInVerse {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .hero-sub {
@@ -235,11 +379,24 @@
       margin-bottom: 15px;
     }
 
+    /* Shimmering Couple Names */
     .couple-name {
       font-family: 'Alex Brush', cursive;
       font-size: 46px;
       color: var(--gold-dark);
       line-height: 1.1;
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(90deg, #997531 0%, #dfbc6d 50%, #997531 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: nameShimmer 4s linear infinite;
+    }
+
+    @keyframes nameShimmer {
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
     }
 
     .ampersand {
@@ -248,6 +405,12 @@
       color: var(--gold-main);
       margin: 8px 0;
       display: block;
+      animation: pulseAmp 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseAmp {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
     }
 
     /* Scratch Card */
@@ -285,7 +448,28 @@
       color: var(--gold-dark);
     }
 
-    /* Calendar Widget Styling */
+    /* Confetti Particle */
+    .confetti-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--gold-main);
+      animation: confettiFall 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Calendar Widget */
     .calendar-widget {
       width: 100%;
       max-width: 280px;
@@ -330,6 +514,12 @@
       color: #3b2b00;
       font-weight: 700;
       box-shadow: 0 3px 10px rgba(199, 160, 89, 0.4);
+      animation: pulseDate 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseDate {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
     .calendar-date.muted {
@@ -350,6 +540,12 @@
       padding: 10px 12px;
       border-radius: 12px;
       min-width: 68px;
+      transition: transform 0.3s ease;
+    }
+
+    .time-box:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-main);
     }
 
     .time-box span {
@@ -385,6 +581,7 @@
       height: 10px;
       border-radius: 50%;
       background: var(--gold-main);
+      box-shadow: 0 0 6px var(--gold-main);
     }
 
     .timeline-title {
@@ -406,7 +603,7 @@
       color: var(--text-muted);
     }
 
-    /* Button Action */
+    /* Action Button */
     .btn-action {
       display: inline-block;
       width: 100%;
@@ -422,20 +619,32 @@
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(199, 160, 89, 0.25);
       margin-top: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(199, 160, 89, 0.4);
     }
   </style>
 </head>
-<body>
+<body onmousemove="createSparkle(event)" ontouchmove="createSparkle(event)">
 
-  <div class="petals-container" id="petalsContainer"></div>
+  <div class="effects-container" id="effectsContainer"></div>
 
   <div class="top-bar">
     <button class="top-bar-btn"><i class="fas fa-globe"></i> Urdu</button>
-    <button class="top-bar-btn" id="audioBtn" onclick="toggleAudio()"><i class="fas fa-volume-up"></i></button>
+    <button class="top-bar-btn" id="audioBtn" onclick="toggleAudio()">
+      <span id="audioLabel">Sound</span>
+      <div class="audio-bars" id="audioBars">
+        <span></span><span></span><span></span>
+      </div>
+    </button>
   </div>
 
+  <!-- Pakistani Wedding Flute Instrumental Tune -->
   <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3" type="audio/mpeg">
   </audio>
 
   <div class="envelope-screen" id="envelopeScreen">
@@ -452,7 +661,7 @@
 
   <div class="invitation-container" id="invContainer">
 
-    <div class="card hero-card">
+    <div class="card hero-card card-reveal">
       <div class="verse-box">"And We created you in pairs..."</div>
       <p class="hero-sub"><i class="fas fa-heart" style="color:var(--gold-main);"></i> We cordially invite you to celebrate our wedding</p>
       <div class="couple-name">Dr. Hasnain Raza</div>
@@ -460,7 +669,7 @@
       <div class="couple-name">Komal Batool</div>
     </div>
 
-    <div class="card">
+    <div class="card card-reveal">
       <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">Save The Date</p>
       <div class="calendar-widget">
         <div class="calendar-header">October 2026</div>
@@ -516,9 +725,9 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card card-reveal">
       <p style="font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px;">Scratch to Reveal</p>
-      <div class="scratch-wrapper">
+      <div class="scratch-wrapper" id="scratchWrapper">
         <canvas id="scratchCanvas" width="220" height="200"></canvas>
         <div class="heart-revealed">
           <p style="font-size: 10px; color: var(--gold-main); letter-spacing: 1px;">OUR FOREVER BEGINS</p>
@@ -529,7 +738,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card card-reveal">
       <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;">Counting Down to Barat</p>
       <div class="countdown-grid">
         <div class="time-box"><span id="days">00</span><p>DAYS</p></div>
@@ -539,7 +748,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card card-reveal">
       <p style="font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">Program Timeline</p>
       <div class="timeline-item">
         <div class="timeline-title">Barat Ceremony</div>
@@ -553,7 +762,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card card-reveal">
       <i class="fas fa-map-marker-alt" style="font-size: 24px; color: var(--gold-main); margin-bottom: 8px;"></i>
       <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold-dark);">Al-Kamal Marquee / Hall</h3>
       <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Tulamba, Punjab, Pakistan</p>
@@ -563,9 +772,10 @@
   </div>
 
   <script>
-    // Create Falling Petals
-    const petalsContainer = document.getElementById('petalsContainer');
-    for (let i = 0; i < 12; i++) {
+    const effectsContainer = document.getElementById('effectsContainer');
+
+    // Falling Petals
+    for (let i = 0; i < 10; i++) {
       const petal = document.createElement('div');
       petal.className = 'petal';
       petal.style.left = Math.random() * 100 + 'vw';
@@ -573,39 +783,91 @@
       petal.style.height = (15 + Math.random() * 15) + 'px';
       petal.style.animationDuration = (4 + Math.random() * 4) + 's';
       petal.style.animationDelay = (Math.random() * 5) + 's';
-      petalsContainer.appendChild(petal);
+      effectsContainer.appendChild(petal);
+    }
+
+    // Floating Qandeel / Lanterns
+    for (let i = 0; i < 6; i++) {
+      const lantern = document.createElement('div');
+      lantern.className = 'lantern';
+      lantern.style.left = (10 + Math.random() * 80) + 'vw';
+      lantern.style.animationDuration = (7 + Math.random() * 6) + 's';
+      lantern.style.animationDelay = (Math.random() * 6) + 's';
+      effectsContainer.appendChild(lantern);
+    }
+
+    // Interactive Sparkle Trail on Move
+    let lastSparkle = 0;
+    function createSparkle(e) {
+      const now = Date.now();
+      if (now - lastSparkle < 80) return;
+      lastSparkle = now;
+
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      if (!clientX || !clientY) return;
+
+      sparkle.style.left = clientX + 'px';
+      sparkle.style.top = clientY + 'px';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 800);
     }
 
     const bgMusic = document.getElementById('bgMusic');
     let isPlaying = false;
 
     function toggleAudio() {
+      const audioBars = document.getElementById('audioBars');
       if (isPlaying) {
         bgMusic.pause();
-        document.getElementById('audioBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+        audioBars.classList.remove('playing');
+        document.getElementById('audioBtn').style.borderColor = 'var(--gold-main)';
       } else {
         bgMusic.play().catch(() => {});
-        document.getElementById('audioBtn').innerHTML = '<i class="fas fa-volume-up"></i>';
+        audioBars.classList.add('playing');
+        document.getElementById('audioBtn').style.borderColor = 'var(--gold-dark)';
       }
       isPlaying = !isPlaying;
     }
 
     function openInvitation() {
       document.getElementById('envBox').classList.add('open');
-      bgMusic.play().then(() => isPlaying = true).catch(() => {});
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        document.getElementById('audioBars').classList.add('playing');
+      }).catch(() => {});
       
       setTimeout(() => {
         const env = document.getElementById('envelopeScreen');
-        env.style.opacity = '0';
+        env.classList.add('zoom-out');
         setTimeout(() => {
           env.style.display = 'none';
           document.getElementById('invContainer').classList.add('visible');
           initHeartScratch();
           startLiveCountdown();
+          initScrollReveal();
         }, 800);
-      }, 900);
+      }, 700);
     }
 
+    // Scroll Reveal Intersection Observer with 3D depth
+    function initScrollReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.card-reveal').forEach(card => {
+        observer.observe(card);
+      });
+    }
+
+    // Scratch Card with Confetti Celebration
     function initHeartScratch() {
       const canvas = document.getElementById('scratchCanvas');
       if (!canvas) return;
@@ -629,7 +891,29 @@
       ctx.textAlign = 'center';
       ctx.fillText('SCRATCH HERE', 110, 95);
 
+      let clearedPixels = 0;
+      let totalPixels = canvas.width * canvas.height;
       let isScratching = false;
+      let confettiTriggered = false;
+
+      function triggerConfetti() {
+        if (confettiTriggered) return;
+        confettiTriggered = true;
+        const wrapper = document.getElementById('scratchWrapper');
+        for (let i = 0; i < 20; i++) {
+          const conf = document.createElement('div');
+          conf.className = 'confetti-particle';
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 40 + Math.random() * 60;
+          conf.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+          conf.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+          conf.style.left = '110px';
+          conf.style.top = '100px';
+          wrapper.appendChild(conf);
+          setTimeout(() => conf.remove(), 1000);
+        }
+      }
+
       function scratch(e) {
         if (!isScratching) return;
         const rect = canvas.getBoundingClientRect();
@@ -641,6 +925,11 @@
         ctx.beginPath();
         ctx.arc(clientX - rect.left, clientY - rect.top, 18, 0, Math.PI * 2);
         ctx.fill();
+
+        clearedPixels += 400;
+        if (clearedPixels > totalPixels * 0.35) {
+          triggerConfetti();
+        }
       }
 
       canvas.addEventListener('mousedown', () => isScratching = true);
@@ -672,4 +961,5 @@
     }
   </script>
 </body>
+<h6>created by Zaigahm</h6>
 </html>
